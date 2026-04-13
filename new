@@ -1,93 +1,174 @@
 """
-Description: This program will provide salary increases of 20% to all 
-executives at PiXELL-River Financial.  Prior to implementing this change, 
-the program will see how many executives will end up with salaries greater than 
-the high-salary mark.
-Author: ACE Faculty
-Edited by: {Student Name}
-Date: {Date}
-Usage: 
+Description: A client program written to verify correctness of
+the BankAccount sub classes.
 """
-import logging 
-
-data = []
-new_data = []
-
-HIGH_SALARY = 120000
-RECOMMENDED_INCREASE = 0.20
-
-logging.basicConfig(level = logging.DEBUG, filename = "app.log",
-                    filemode = "w", format = "%(asctime)s - %(levelname)s - %(message)s")
-#LECTURE SECTION 1
-
-# Inititalize File to None (null) outside of try so that it is accessible in try and finally blocks.
-file = None
+__author__ = "Jaspreet kaur"
+__version__ = "1.0.0"
+__credits__ = "5.5.0"
+ 
+# 1.  Import all BankAccount types using the bank_account package
+#     Import date from datetime
+from bank_account import ChequingAccount, SavingsAccount, InvestmentAccount
+from datetime import date
+ 
+# Quick test object creation (basic check)
 try:
-      file = open('module_4_data.txt')
-      data = file.readlines()
-      2/0
-
-      file.close()
-      print("File Closed")
-except FileNotFoundError as e:
-     # print("File does not exist", e)
-     logging.error("File does not exist.")
+    c = ChequingAccount(2001, 82528, 500.0)
+    s = SavingsAccount(2002, 82529, 1000.0, 0.03)
+    i = InvestmentAccount(2004, 82530, 100.0, date(2020, 1, 1), 3.25)
+   
+    print(c)
+    print(s)
+    print(i)
+ 
 except Exception as e:
-      #print("General exceptions has occured", e)
-      logging.error(e)
-finally:
-      if file is not None: 
-            file.close()
-          #  print("File Closed")
-            logging.info("File closed")     
-
-#LECTURE SECTION 2
+    print(f"Error creating accounts: {e}")
+ 
+# 2. Create an instance of a ChequingAccount with values of your
+# choice including a balance which is below the overdraft limit.
 try:
-      if len(data) == 0:
-            raise Exception("No data exists.")
-      for record in data:
-            items = record.split(',')
-            title = items[0]
-            name = items[1]
-            salary = float(items[2])
-            
-            #LECTURE SECTION 3
-            if salary > HIGH_SALARY:
-                  logging.warning(f"{name},s salary {salary} is currently above the recommend maximum {HIGH_SALARY}.")
-                  salary * (1 + RECOMMENDED_INCREASE) > HIGH_SALARY
-                  logging.warning(f"{name},s salary {salary} will be above the recommended maximum of {HIGH_SALARY} with the planned {RECOMMENDED_INCREASE}")
-
-
-            #REQUIREMENT:  NOTE RECORDS THAT EXCEED OR WILL EXCEED HIGH_SALARY AMOUNT
-            salary *= (1 + RECOMMENDED_INCREASE)
-            new_data.append([title,name,salary])
+    c = ChequingAccount(2004, 82528, -250.0)
+    print(c)
 except Exception as e:
-      #print(e)
-      logging.error("Exception processing dta.")
-
-
-#LECTURE SECTION 4
+    print(f"Error creating ChequingAccount: {e}")
+ 
+# 3. Print the ChequingAccount created in step 2.
 try:
-      file = open('updated_salaries.txt', 'w')
-      for record in new_data:
-            row = ""
-            for index, item in enumerate(record):
-                  row += str(item)
-                  if index < len(record) - 1:
-                        row += (",")
-            row += '\n'
-            file.write(row)
-except:
-      #print("Exception writing data.")
-      logging.error("Exception writing data.")
-finally: 
-      file.write("END OF FILE") 
-      file.close()                 
-
-#LECTURE SECTION 5
-print("End of Program")
-logging.debug("Debug level message")
-logging.info("Info level message")
-logging.warning("Error level message")
-logging.error("Error level message")
-logging.critical("Critical level message")
+    print(c)
+except Exception as e:
+    print(f"Error printing ChequingAccount: {e}")
+ 
+# 3b. Print the service charges amount if calculated based on the
+# current state of the ChequingAccount created in step 2.
+try:
+    print("Service Charges:", c.get_service_charges())
+except Exception as e:
+    print(f"Error calculating ChequingAccount charges: {e}")
+ 
+# 4a. Use ChequingAccount instance created in step 2 to deposit
+# enough money into the chequing account to avoid overdraft fees.
+try:
+    c.deposit(300)
+except Exception as e:
+    print(f"Error depositing into ChequingAccount: {e}")
+# 4b. Print the ChequingAccount
+try:
+    print(c)
+except Exception as e:
+    print(f"Error printing ChequingAccount: {e}")
+# 4c. Print the service charges amount if calculated based on the
+# current state of the ChequingAccount created in step 2.
+try:
+    print("Service Charges:", c.get_service_charges())
+except Exception as e:
+    print(f"Error calculating ChequingAccount charges: {e}")
+print("===================================================")
+# 5. Create an instance of a SavingsAccount with values of your
+# choice including a balance which is above the minimum balance.
+try:
+    s = SavingsAccount(2002, 82529, 2000.0, 500.0)
+    print(c)
+except Exception as e:
+    print(f"Error creating SavingsAccount: {e}")
+ 
+# 6. Print the SavingsAccount created in step 5.
+try:
+    print(s)
+except Exception as e:
+    print(f"Error printing SavingsAccount: {e}")
+# 6b. Print the service charges amount if calculated based on the
+# current state of the SavingsAccount created in step 5.
+try:
+    print("Service Charges:", s.get_service_charges())
+    print(c)
+except Exception as e:
+    print(f"Error calculating SavingsAccount charges: {e}")
+ 
+# 7a. Use this SavingsAccount instance created in step 5 to withdraw
+# enough money from the savings account to cause the balance to fall
+# below the minimum balance.
+try:
+    s.withdraw(1600)  
+except Exception as e:
+    print(f"Error withdrawing from SavingsAccount: {e}")
+ 
+# 7b. Print the SavingsAccount
+try:
+    print(s)
+except Exception as e:
+    print(f"Error printing SavingsAccount: {e}")
+# 7c. Print the service charges amount if calculated based on the
+# current state of the SavingsAccount created in step 5.
+try:
+    print("Service Charges:", s.get_service_charges())
+except Exception as e:
+    print(f"Error calculating SavingsAccount charges: {e}")
+ 
+print("===================================================")
+# 8. Create an instance of an InvestmentAccount with values of your
+# choice including a date created within the last 10 years.
+try:
+    investment_account_now = InvestmentAccount(
+        2005,  
+        82531,    
+        12000.00,  
+        date(2022, 5, 13),
+        0.05      
+    )
+    print(investment_account_now)
+except Exception as e:
+    print(f"Error creating InvestmentAccount (recent): {e}")
+ 
+# 9a. Print the InvestmentAccount created in step 8.
+# 9b. Print the service charges amount if calculated based on the
+# current state of the InvestmentAccount created in step 8.
+try:
+    print(investment_account_now)
+    print("Service Charges:", investment_account_now.get_service_charges())
+except Exception as e:
+    print(f"Error with InvestmentAccount (recent): {e}")
+ 
+# 10. Create an instance of an InvestmentAccount with values of your
+# choice including a date created prior to 10 years ago.
+try:
+    investment_account_old = InvestmentAccount(
+        2006,  
+        82532,    
+        15000.00,  
+        date(2005, 3, 10),  
+        0.05  
+    )
+except Exception as e:
+    print(f"Error creating InvestmentAccount (old): {e}")
+ 
+# 11a. Print the InvestmentAccount created in step 10.
+# 11b. Print the service charges amount if calculated based on the
+# current state of the InvestmentAccount created in step 10.
+try:
+    print(investment_account_old)
+    print("Service Charges:", investment_account_old.get_service_charges())
+except Exception as e:
+    print(f"Error with InvestmentAccount (old): {e}")
+ 
+print("===================================================")
+ 
+# 12. Update the balance of each account created in steps 2, 5, 8 and 10
+# by using the withdraw method of the superclass and withdrawing
+# the service charges determined by each instance invoking the
+# polymorphic get_service_charges method.
+try:
+    print("Investment Account (Recent) Service Charges:",
+          f"${investment_account_now.get_service_charges():.2f}")
+except Exception as e:
+    print(f"Error getting service charges (recent): {e}")
+ 
+ 
+# 13. Print each of the bank account objects created in steps 2, 5, 8 and 10.
+try:
+    print("Final Accounts Overview:")
+    print(c)
+    print(s)
+    print(investment_account_now)
+    print(investment_account_old)
+except Exception as e:
+    print(f"Error printing final accounts: {e}")
