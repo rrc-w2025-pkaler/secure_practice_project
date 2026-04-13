@@ -1,174 +1,91 @@
+""""A client program written to verify correctness of the activity 
+classes.
 """
-Description: A client program written to verify correctness of
-the BankAccount sub classes.
-"""
-__author__ = "Jaspreet kaur"
+ 
+__author__ = "ACE Faculty"
 __version__ = "1.0.0"
-__credits__ = "5.5.0"
+__credits__ = ""
  
-# 1.  Import all BankAccount types using the bank_account package
-#     Import date from datetime
-from bank_account import ChequingAccount, SavingsAccount, InvestmentAccount
-from datetime import date
+from shape import *
  
-# Quick test object creation (basic check)
-try:
-    c = ChequingAccount(2001, 82528, 500.0)
-    s = SavingsAccount(2002, 82529, 1000.0, 0.03)
-    i = InvestmentAccount(2004, 82530, 100.0, date(2020, 1, 1), 3.25)
-   
-    print(c)
-    print(s)
-    print(i)
+def main():
+    """Test the functionality of the methods encapsulated 
+    in this project.
+    """
  
-except Exception as e:
-    print(f"Error creating accounts: {e}")
+    # In the statements coded below, ensure that any statement that 
+    # could result in an exception is handled.  When exceptions are 
+    # 'caught', display the exception message to the console.
  
-# 2. Create an instance of a ChequingAccount with values of your
-# choice including a balance which is below the overdraft limit.
-try:
-    c = ChequingAccount(2004, 82528, -250.0)
-    print(c)
-except Exception as e:
-    print(f"Error creating ChequingAccount: {e}")
+    # *** PART 1 ***
+    print("*************PART 1****************")
  
-# 3. Print the ChequingAccount created in step 2.
-try:
-    print(c)
-except Exception as e:
-    print(f"Error printing ChequingAccount: {e}")
- 
-# 3b. Print the service charges amount if calculated based on the
-# current state of the ChequingAccount created in step 2.
-try:
-    print("Service Charges:", c.get_service_charges())
-except Exception as e:
-    print(f"Error calculating ChequingAccount charges: {e}")
- 
-# 4a. Use ChequingAccount instance created in step 2 to deposit
-# enough money into the chequing account to avoid overdraft fees.
-try:
-    c.deposit(300)
-except Exception as e:
-    print(f"Error depositing into ChequingAccount: {e}")
-# 4b. Print the ChequingAccount
-try:
-    print(c)
-except Exception as e:
-    print(f"Error printing ChequingAccount: {e}")
-# 4c. Print the service charges amount if calculated based on the
-# current state of the ChequingAccount created in step 2.
-try:
-    print("Service Charges:", c.get_service_charges())
-except Exception as e:
-    print(f"Error calculating ChequingAccount charges: {e}")
-print("===================================================")
-# 5. Create an instance of a SavingsAccount with values of your
-# choice including a balance which is above the minimum balance.
-try:
-    s = SavingsAccount(2002, 82529, 2000.0, 500.0)
-    print(c)
-except Exception as e:
-    print(f"Error creating SavingsAccount: {e}")
- 
-# 6. Print the SavingsAccount created in step 5.
-try:
-    print(s)
-except Exception as e:
-    print(f"Error printing SavingsAccount: {e}")
-# 6b. Print the service charges amount if calculated based on the
-# current state of the SavingsAccount created in step 5.
-try:
-    print("Service Charges:", s.get_service_charges())
-    print(c)
-except Exception as e:
-    print(f"Error calculating SavingsAccount charges: {e}")
- 
-# 7a. Use this SavingsAccount instance created in step 5 to withdraw
-# enough money from the savings account to cause the balance to fall
-# below the minimum balance.
-try:
-    s.withdraw(1600)  
-except Exception as e:
-    print(f"Error withdrawing from SavingsAccount: {e}")
- 
-# 7b. Print the SavingsAccount
-try:
-    print(s)
-except Exception as e:
-    print(f"Error printing SavingsAccount: {e}")
-# 7c. Print the service charges amount if calculated based on the
-# current state of the SavingsAccount created in step 5.
-try:
-    print("Service Charges:", s.get_service_charges())
-except Exception as e:
-    print(f"Error calculating SavingsAccount charges: {e}")
- 
-print("===================================================")
-# 8. Create an instance of an InvestmentAccount with values of your
-# choice including a date created within the last 10 years.
-try:
-    investment_account_now = InvestmentAccount(
-        2005,  
-        82531,    
-        12000.00,  
-        date(2022, 5, 13),
-        0.05      
-    )
-    print(investment_account_now)
-except Exception as e:
-    print(f"Error creating InvestmentAccount (recent): {e}")
- 
-# 9a. Print the InvestmentAccount created in step 8.
-# 9b. Print the service charges amount if calculated based on the
-# current state of the InvestmentAccount created in step 8.
-try:
-    print(investment_account_now)
-    print("Service Charges:", investment_account_now.get_service_charges())
-except Exception as e:
-    print(f"Error with InvestmentAccount (recent): {e}")
- 
-# 10. Create an instance of an InvestmentAccount with values of your
-# choice including a date created prior to 10 years ago.
-try:
-    investment_account_old = InvestmentAccount(
-        2006,  
-        82532,    
-        15000.00,  
-        date(2005, 3, 10),  
-        0.05  
-    )
-except Exception as e:
-    print(f"Error creating InvestmentAccount (old): {e}")
- 
-# 11a. Print the InvestmentAccount created in step 10.
-# 11b. Print the service charges amount if calculated based on the
-# current state of the InvestmentAccount created in step 10.
-try:
-    print(investment_account_old)
-    print("Service Charges:", investment_account_old.get_service_charges())
-except Exception as e:
-    print(f"Error with InvestmentAccount (old): {e}")
- 
-print("===================================================")
- 
-# 12. Update the balance of each account created in steps 2, 5, 8 and 10
-# by using the withdraw method of the superclass and withdrawing
-# the service charges determined by each instance invoking the
-# polymorphic get_service_charges method.
-try:
-    print("Investment Account (Recent) Service Charges:",
-          f"${investment_account_now.get_service_charges():.2f}")
-except Exception as e:
-    print(f"Error getting service charges (recent): {e}")
+    # 1. Create an empty list of Shape objects.
+    shapes = []
  
  
-# 13. Print each of the bank account objects created in steps 2, 5, 8 and 10.
-try:
-    print("Final Accounts Overview:")
-    print(c)
-    print(s)
-    print(investment_account_now)
-    print(investment_account_old)
-except Exception as e:
-    print(f"Error printing final accounts: {e}")
+    # 2. Code a statement which creates an instance of the Triangle 
+    # class.
+    # Append the Triangle to the list of shapes.
+    try:
+        t1 = Triangle("white", 3, 4, 5)
+        shapes.append(t1)
+    except Exception as e:
+        print(f"Error creating Triangle: {e}")
+ 
+ 
+    # 3. Code a statement which creates an instance of the Rectangle 
+    # class.
+    # Append the Rectangle to the list of shapes.
+    try:
+        r1 = Rectangle("white", 2, 4)
+        shapes.append(r1)
+    except Exception as e:
+        print(e)
+ 
+ 
+    # 4. Code 3 additional statements which creates an instance of 
+    # Triangle or Rectangle classes (your choice).
+    # Append these instances to the list of shapes.
+    try:
+        t2 = Triangle("purple", 3, 4, 5)
+        shapes.append(t2)
+    except Exception as e:
+        print(e)
+ 
+    try:
+        r2 = Rectangle("purple", 2, 4)
+        shapes.append(r2)
+    except Exception as e:
+        print(e)
+ 
+    try:
+        t3 = Triangle("blue", 3, 4, 5)
+        shapes.append(t3)
+    except Exception as e:
+        print(e)
+ 
+ 
+ 
+    # 5. Iterate through the list of shapes.  
+    # On each iteration:
+    # - print the shape
+    # - print the area of the shape to 2 decimal places
+    # - print the perimeter of the shape to 2 decimal places
+ 
+ 
+    # *** END PART 1 ***
+    for shape in shapes:
+        try:
+            print(shape) 
+            print(f"Area: {shape.calculate_area():.2f}")
+            print(f"Perimeter: {shape.calculate_perimeter():.2f}")
+            print("-" * 30)
+        except Exception as e:
+            print(e)
+
+ 
+ 
+if __name__ == "__main__":
+    main()
+includes
